@@ -1,8 +1,8 @@
 {
-  "name": "gatsby-blog",
+  "name": "charmed_blog",
   "description": "A starter for a blog powered by Gatsby and Markdown",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <z@charmed.tech>",
+  "version": "0.0.1",
+  "author": "CharmedSatyr <z@charmed.tech>",
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   },
