@@ -1,9 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: `Charmed Blog`,
+    title: `charmed.blog`,
     author: `CharmedSatyr`,
-    description: `A starter blog demonstrating what Gatsby can do.`,
-    siteUrl: `https://blog.charmed.tech/`,
+    description: `Trying new approaches and blogging solutions in the Node.js ecosystem`,
+    siteUrl: `https://charmed.blog/`,
     social: {
       mastodon: `charmed.social/@z`,
     },
@@ -39,7 +39,12 @@ module.exports = {
               wrapperStyle: `margin-bottom: 1.0725rem`,
             },
           },
-          `gatsby-remark-prismjs`,
+          {
+            resolve: `gatsby-remark-prismjs`,
+            options: {
+              inlineCodeMarker: `±`,
+            },
+          },
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
         ],
@@ -51,13 +56,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `GatsbyJS`,
+        name: `CharmedSatyr's magical tech blog`,
+        short_name: `charmed.blog`,
         start_url: `/`,
-        background_color: `#ffffff`,
+        background_color: `#2d2d2d`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `content/assets/gatsby-icon.png`,
+        icon: `content/assets/Satyr.svg.png`,
       },
     },
     `gatsby-plugin-offline`,
