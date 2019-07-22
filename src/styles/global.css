@@ -16,10 +16,6 @@ ol {
   margin-left: 1em;
 }
 
-img {
-  box-shadow: 0 0 2px var(--dark-gray);
-}
-
 .gatsby-highlight-code-line {
   background-color: #383432;
   display: block;
@@ -36,4 +32,12 @@ a {
 
 .gatsby-code-button-container {
   color: red;
+}
+
+/**
+ * `!important` is bad, but Gatsby is adding inline
+ * styles to images sourced in Markdown. Hotfix.
+ */
+img {
+  box-shadow: 0 0 3px var(--dark-gray) !important;
 }
