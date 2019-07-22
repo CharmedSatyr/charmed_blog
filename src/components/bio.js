@@ -62,7 +62,7 @@ const Bio = () => {
         >
           <strong>{author}</strong>
         </a>
-        , who lives in Seattle. He is available for hire. You can{' '}
+        , who lives in Seattle. He is available for hire. You should{' '}
         <a
           href={`https://${social.mastodon}`}
           target={`_blank`}
