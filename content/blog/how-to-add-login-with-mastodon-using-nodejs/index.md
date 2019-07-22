@@ -6,7 +6,7 @@ description: My first blog post! This tutorial walks through implementing social
 
 ## tl;dr
 
-There are tradeoffs to using an instance of a federated network like [Mastodon](https://joinmastodon.org) to log in to your application, but Mastodon's OAuth2 support makes it possible! If you want to try it out without following the full tutorial, you can <a href='#mastodon-setup'>set up</a> your application on Mastodon, [fork](https://github.com) the Express demo, <a href='#environment'>update</a> your environmental variables, and <a href='#start'>start</a> your app.
+There are tradeoffs to using an instance of a federated network like [Mastodon](https://joinmastodon.org) to log in to your application, but Mastodon's OAuth2 support makes it possible! If you want to try it out without following the full tutorial, you can <a href='#create-mastodon-app'>create</a> the Mastodon application, [fork](https://github.com/CharmedSatyr/mastodon-oauth-demo) the Express demo, <a href='#environment'>update</a> your environmental variables, and run `bash±npm start`.
 
 ## Introduction
 
@@ -46,9 +46,9 @@ I wrote this tutorial using the following software versions:
 - Yeoman: 3.1.0
 - Generator Express ES6: 0.6.1
 
-Version information for packages saved to the project with npm can be found [here](https://github.com/package.json). You might be able to get away with using a different setup; give it a shot!
+Version information for packages saved to the project with npm can be found [here](https://github.com/CharmedSatyr/mastodon-oauth-demo/blob/master/package.json). You might be able to get away with using a different setup; give it a shot!
 
-## <div id='mastodon-setup'>Create the Mastodon Application</div>
+## <div id='create-mastodon-app'>Create the Mastodon Application</div>
 
 Let's get started. Your first step will be to sign in to the Mastodon instance that should authorize your users. If you don't have a Mastodon account, you can find an instance that's right for you at [instances.social](https://instances.social). This tutorial will use the instance I run, [charmed.social](https://charmed.social), for the demo.
 
@@ -66,19 +66,19 @@ Now, it's time to fill in the information for the application. I'll be using rea
 
 #### Application Name
 
-This is how your OAuth application will be registered on the instance server. I'm using `Mastodon OAuth Demo`.
+This is how your OAuth application will be registered on the instance server. I'm using `bash±Mastodon OAuth Demo`.
 
 #### Application website
 
-I'm using the localhost IP address on port 3000: `http://127.0.0.1:3000`.
+I'm using the localhost IP address on port 3000: `bash±http://127.0.0.1:3000`.
 
 #### Redirect URI
 
 You can specify multiple valid redirect URIs by putting each on a different line.
 
-The default redirect URI is `urn:ietf:wg:oauth:2.0:oob`. You should keep this here, as it will come in handy to let us know we've set everything up properly. If this callback address is specified in your local application, you will see a message on the Mastodon server when you log in rather than being redirected back to your app.
+The default redirect URI is `bash±urn:ietf:wg:oauth:2.0:oob`. You should keep this here, as it will come in handy to let us know we've set everything up properly. If this callback address is specified in your local application, you will see a message on the Mastodon server when you log in rather than being redirected back to your app.
 
-I'm going to add `http://127.0.0.1:3000/callback` for use later on in development. The `/callback` route will be built into our application.
+I'm going to add `bash±http://127.0.0.1:3000/callback` for use later on in development. The `bash±/callback` route will be built into our application.
 
 #### Scopes
 
@@ -131,12 +131,12 @@ yo express-es6
 Yeoman will now guide you through setup and installation. You may choose whatever options suit you, but this tutorial will keep it simple.
 
 1. Specify whether you want to report usage statistics → your call
-1. Name your project → your call; mine is `mastodon-oauth-demo`
-1. Create a new directory → `y`
-1. Select a view engine → `pug`
-1. Select a CSS preprocessor → `none`
-1. Skip adding a default test → `n`
-1. Install dependencies with npm → `Yes, with npm`
+1. Name your project → your call; mine is `bash±mastodon-oauth-demo`
+1. Create a new directory → `bash±y`
+1. Select a view engine → `bash±pug`
+1. Select a CSS preprocessor → `bash±none`
+1. Skip adding a default test → `bash±n`
+1. Install dependencies with npm → `bash±Yes, with npm`
 
 In a few seconds, you'll have a complete Express scaffolding!
 
@@ -152,7 +152,7 @@ npm i dotenv
 
 <br />
 
-Now create a `.env` file at the root of your project. Inside it, put the following, filling in the blanks with the correct values for your project.
+Now create a `bash±.env` file at the root of your project. Inside it, put the following, filling in the blanks with the correct values for your project.
 
 ```bash
 # .env
@@ -183,9 +183,9 @@ MASTODON_SCOPES=read:accounts
 
 <br />
 
-The values you enter should not include quotation marks or trailing slashes. Notice that the default redirect from the server is currently enabled, while the local `/callback` route is commented out.
+The values you enter should not include quotation marks or trailing slashes. Notice that the default redirect from the server is currently enabled, while the local `javascript±/callback` route is commented out.
 
-Now, update the top of `bin/start` to include the following:
+Now, update the top of `bash±bin/start` to include the following:
 
 ```javascript
 // bin/start
@@ -206,9 +206,9 @@ This will make your environmental variables accessible throughout the applicatio
 
 ### Login
 
-Add this point, we will update the project views with a login link and project-specific display titles, and then we'll add a `/login` route to our server.
+Add this point, we will update the project views with a login link and project-specific display titles, and then we'll add a `javascript±/login` route to our server.
 
-Navigate to the `views/` directory and open `index.pug`. Modify the file to include the following:
+Navigate to the `bash±views/` directory and open `bash±index.pug`. Modify the file to include the following:
 
 ```pug
 //- views/index.pug
@@ -227,9 +227,9 @@ block content
 
 <br />
 
-This will set up some conditional rendering: if a `user` object exists, a link to the user's profile will appear. Otherwise, the user will see a login link that includes the name of the Mastodon instance they can log in with.
+This will set up some conditional rendering: if a `bash±user` object exists, a link to the user's profile will appear. Otherwise, the user will see a login link that includes the name of the Mastodon instance they can log in with.
 
-Now, head to the `routes/` directory to make this work. In `routes/index.js`, update the `title` rendered to the title you'd like to display for your project, and add an `instance` key with your environment value for `MASTODON_INSTANCE_NAME` to the argument object. Pug will use these values to render appropriate views.
+Now, head to the `bash±routes/` directory to make this work. In `bash±routes/index.js`, update the `javascript±title` rendered to the title you'd like to display for your project, and add an `javascript±instance` key with your environment value for `bash±MASTODON_INSTANCE_NAME` to the argument object. Pug will use these values to render appropriate views.
 
 <!-- prettier-ignore -->
 ```javascript
@@ -253,7 +253,7 @@ module.exports = router;
 
 <br />
 
-Next, create an `auth.js` file in the same directory. This is where we'll put the routes related to Mastodon login.
+Next, create an `bash±auth.js` file in the same directory. This is where we'll put the routes related to Mastodon login.
 
 Add the following to that file:
 
@@ -292,11 +292,11 @@ module.exports = router;
 
 <br />
 
-This block creates a `/login` route that redirects the user to Mastodon with the parameters for the application you set up.
+This block creates a `javascript±/login` route that redirects the user to Mastodon with the parameters for the application you set up.
 
-To enable this router, we'll need to head back to `app.js` in the project root.
+To enable this router, we'll need to head back to `bash±app.js` in the project root.
 
-First, require the `auth` router at the top of the document where the other routers are imported. Then, have the app `use` your router. I tend to put auth routers before the others.
+First, require the `bash±auth` router at the top of the document where the other routers are imported. Then, have the app `bash±use` your router. I tend to put auth routers before the others.
 
 ```javascript
 // app.js
@@ -326,7 +326,7 @@ npm start
 
 <br />
 
-You should see `node` start and output some information to your terminal. Now, in your browser, navigate to `http://127.0.0.1:3000`.
+You should see `bash±node` start and log to your terminal. Now, in your browser, navigate to `bash±http://127.0.0.1:3000`.
 
 You should see a simple home page with your project title, a welcome message, and a link to log in using your Mastodon instance.
 
@@ -342,7 +342,7 @@ In our next step, we will implement a custom callback so the Express server will
 
 ### Callback
 
-Let's head back to the `.env` file. With a `#`, comment out the `MASTODON_REDIRECT_URI` value we were using and uncomment the one that uses the localhost URI you registered in the Mastodon application. The next time we try to log in, instead of redirecting us to a page with the authorization code, Mastodon will redirect us to the callback address.
+Let's head back to the `bash±.env` file. With a `bash±#` symbol, comment out the `bash±MASTODON_REDIRECT_URI` value we were using and uncomment the one that uses the localhost URI you registered in the Mastodon application. The next time we try to log in, instead of redirecting us to a page with the authorization code, Mastodon will redirect us to the callback address.
 
 ```bash
 # .env
@@ -362,9 +362,9 @@ MASTODON_REDIRECT_URI=http://127.0.0.1:3000/callback
 
 <br />
 
-Now we need to create a callback route in `./routes/auth.js` and implement a function to get the user profile.
+Now we need to create a callback route in `bash±routes/auth.js` and implement a function to get the user profile.
 
-At the top of `routes/auth.js`, require the `authorize` method from `./oauth/mastodon` at the top of the file, and add a `/callback` route below the `/login` route.
+At the top of `bash±routes/auth.js`, require the `bash±authorize` method from `bash±./oauth/mastodon.js` at the top of the file, and add a `javascript±/callback` route below the `javascript±/login` route.
 
 <!-- prettier-ignore -->
 ```javascript
@@ -396,13 +396,13 @@ module.exports = router;
 
 <br />
 
-This code calls an `authorize` function that returns a Promise when the `/callback` route is hit. In this implementation, the Promise will either resolve to a `user` object and display that object in the browser in JSON format, or it will reject with an error and redirect to the application's home page. In a later step, we will add some additional code to incorporate the `user` object into our views.
+This code calls an `authorize` function that returns a Promise when the `javascript±/callback` route is hit. In this implementation, the Promise will either resolve to a `user` object and display that object in the browser in JSON format, or it will reject with an error and redirect to the application's home page. In a later step, we will add some additional code to incorporate the `user` object into our views.
 
 Currently, we are requiring `authorize` from a nonexistent file. Let's fix that. First, create a folder called `oauth` in `routes/`. If you refactor this project later to include other OAuth providers (Twitter, GitHub, etc.), it will be nicer to have the different implementations in their own folder.
 
-Create a `mastodon.js` file inside `oauth/`. The `authorize` function will need to interact with Mastodon's REST API with `POST` and `GET` requests. We can make those easier by installing an HTTP client. This tutorial will use `superagent`, but you use vanilla AJAX or your preferred client. ([Click here](https://gist.github.com/CharmedSatyr/3f45fe7a10cec5f50f68ab425d0053f4) to see an implementation that uses `request`—I wrote it to return a Promise, so it can be simply dropped in as `routes/oauth/mastodon.js` in place of the below.)
+Create a `bash±mastodon.js` file inside `bash±oauth/`. The `bash±authorize` function will need to interact with Mastodon's REST API with `POST` and `GET` requests. We can make those easier by installing an HTTP client. This tutorial will use `superagent`, but you use vanilla AJAX or your preferred client. ([Click here](https://gist.github.com/CharmedSatyr/3f45fe7a10cec5f50f68ab425d0053f4) to see an implementation that uses `request`—I wrote it to return a Promise, so it can be simply dropped in as `bash±routes/oauth/mastodon.js` in place of the below.)
 
-To install `superagent`, enter the following on the command line:
+To install `bash±superagent`, enter the following on the command line:
 
 ```bash
 npm i superagent
@@ -410,7 +410,7 @@ npm i superagent
 
 <br />
 
-Then, paste the below into `routes/oauth/mastodon.js`.
+Then, paste the below into `bash±routes/oauth/mastodon.js`.
 
 <!-- prettier-ignore -->
 ```javascript
@@ -483,7 +483,7 @@ module.exports = { authorize };
 
 The `authorize` function does the following:
 
-1. Given the request object from the `/callback` route, it accesses the authorization code received from the Mastodon server.
+1. Given the request object from the `javascript±/callback` route, it accesses the authorization code received from the Mastodon server.
 
 1. It posts that code with other required application parameters to the token endpoint.
 
@@ -572,11 +572,11 @@ block content
 
 <br />
 
-If the user is logged in, they will see their nickname (display name) from Mastodon, a JSON output of their user profile, and a logout button we'll work on later. If they navigate to `/user` without being logged in, they will be presented with a generic greeting with a login button.
+If the user is logged in, they will see their nickname (display name) from Mastodon, a JSON output of their user profile, and a logout button we'll work on later. If they navigate to `javascript±/user` without being logged in, they will be presented with a generic greeting with a login button.
 
 Now, let's update our routes to render this page.
 
-First, we should update the `/callback` route to append the Mastodon `user` object to the `session` object on the request and redirect us to the `/user` page.
+First, we should update the `javascript±/callback` route to append the Mastodon `user` object to the `javascript±session` object on the request and redirect us to the `javascript±/user` page.
 
 <!-- prettier-ignore -->
 ```javascript
@@ -603,7 +603,7 @@ module.exports = router;
 
 <br />
 
-Now that we have user information to work with, create a new file in the `routes/` folder named `user.js`. The `/user` route should look like this:
+Now that we have user information to work with, create a new file in the `bash±routes/` folder named `bash±user.js`. The `javascript±/user` route should look like this:
 
 <!-- prettier-ignore -->
 ```javascript
@@ -651,17 +651,17 @@ app.use(userRouter); // highlight-line
 
 <br />
 
-Time for another test! Make sure to restart your server and return to the home page at `http://127.0.0.1:3000`. Click on the login link, sign into your Mastodon account, and you should be redirected to your User Profile page that displays a JSON object of your Mastodon profile information.
+Time for another test! Make sure to restart your server and return to the home page at `bash±http://127.0.0.1:3000`. Click on the login link, sign into your Mastodon account, and you should be redirected to your User Profile page that displays a JSON object of your Mastodon profile information.
 
 ![user profile](./assets/user-profile.png)
 
 Your Express application is now able to connect to the application you created on the Mastodon server and use local credentials to get an authorization code. It uses the code to request authorization to access the REST API. When it receives a Bearer token, it requests your user profile. The user profile is parsed and stored in a local session, allowing it to be displayed in the application's views.
 
-We're almost finished. The last step is implementing a `/logout` route.
+We're almost finished. The last step is implementing a `javascript±/logout` route.
 
 ## Logout
 
-Let's make a couple of changes to our setup to ensure a user's session is terminated both on the Mastodon instance and in our local application on logout. First, in `routes/auth.js`, require a `revoke` method from the same file as `authorize`. Then, add one more route at the bottom, `/logout`.
+Let's make a couple of changes to our setup to ensure a user's session is terminated both on the Mastodon instance and in our local application on logout. First, in `bash±routes/auth.js`, require a `bash±revoke` method from the same file as `bash±authorize`. Then, add one more route at the bottom, `javascript±/logout`.
 
 <!-- prettier-ignore -->
 ```javascript
@@ -693,9 +693,9 @@ module.exports = router;
 
 <br />
 
-This handler calls a `revoke` function we'll soon implement in `routes/oauth/mastodon.js` and expects it to return a Promise. If `revoke` is successful (invalidating the access token from the Mastodon instance), it will call the `session.destroy` method to remove the user data from the local session.
+This handler calls a `bash±revoke` function we'll soon implement in `routes/oauth/mastodon.js` and expects it to return a Promise. If `bash±revoke` is successful (invalidating the access token from the Mastodon instance), it will call the `javascript±session.destroy()` method to remove the user data from the local session.
 
-Now to write the `revoke` function. As above, I'm implementing this function with the `superagent` HTTP client, but the `request` version can be found [here](https://gist.github.com/CharmedSatyr/3f45fe7a10cec5f50f68ab425d0053f4).
+Now to write the `bash±revoke` function. As above, I'm implementing this function with the `bash±superagent` HTTP client, but the `bash±request` version can be found [here](https://gist.github.com/CharmedSatyr/3f45fe7a10cec5f50f68ab425d0053f4).
 
 <!-- prettier-ignore -->
 ```javascript
@@ -729,9 +729,9 @@ That's it! Let's test the login/logout functionality to be sure everything's in 
 
 Restart the server, make sure everything's in order on the home page, and click the login link. You should be presented with your user profile.
 
-Don't click the logout button yet! Instead, manually type in the address for your home page again, then manually re-enter `http://127.0.0.1:3000/user`. Your profile should still be there!
+Don't click the logout button yet! Instead, manually type in the address for your home page again, then manually re-enter `bash±http://127.0.0.1:3000/user`. Your profile should still be there!
 
-This time, click logout at the bottom. You'll be redirected to the home page. If you manually visit `http://127.0.0.1:3000/user`, the server should consider you anonymous because your user session was destroyed.
+This time, click logout at the bottom. You'll be redirected to the home page. If you manually visit `bash±http://127.0.0.1:3000/user`, the server should consider you anonymous because your user session was destroyed.
 
 ## Summary
 
