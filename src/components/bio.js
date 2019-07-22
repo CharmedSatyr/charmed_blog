@@ -5,11 +5,11 @@
  * See: https://www.gatsbyjs.org/docs/use-static-query/
  */
 
-import React from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import Image from "gatsby-image"
+import React from 'react'
+import { useStaticQuery, graphql } from 'gatsby'
+import Image from 'gatsby-image'
 
-import { rhythm } from "../utils/typography"
+import { rhythm } from '../utils/typography'
 
 const Bio = () => {
   const data = useStaticQuery(graphql`
@@ -54,12 +54,23 @@ const Bio = () => {
         }}
       />
       <p>
-        Written by <strong>{author}</strong> who lives and works in Seattle. He
-        is available for hire.
-        {` `}
-        <a href={`https://${social.mastodon}`}>
-          You should follow him on Mastodon
+        Written by{' '}
+        <a
+          href={`https://keybase.io/CharmedSatyr`}
+          target={`_blank`}
+          rel={`noopener noreferrer`}
+        >
+          <strong>{author}</strong>
         </a>
+        , who lives in Seattle. He is available for hire. You can{' '}
+        <a
+          href={`https://${social.mastodon}`}
+          target={`_blank`}
+          rel={`noopener noreferrer`}
+        >
+          follow him on Mastodon
+        </a>
+        !
       </p>
     </div>
   )

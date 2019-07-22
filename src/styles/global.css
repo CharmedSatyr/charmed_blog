@@ -1,0 +1,39 @@
+:root {
+  --accent: #fa3e3e;
+  --dark-gray: #2d2d2d;
+}
+
+html,
+body {
+  background-color: var(--dark-gray);
+  height: 100%;
+}
+
+ul,
+ol {
+  list-style-position: inside;
+  list-style-type: square;
+  margin-left: 1em;
+}
+
+img {
+  box-shadow: 0 0 2px var(--dark-gray);
+}
+
+.gatsby-highlight-code-line {
+  background-color: #383432;
+  display: block;
+  margin-right: -1em;
+  margin-left: -1em;
+  padding-right: 1em;
+  padding-left: 0.75em;
+  border-left: 0.25em solid var(--accent);
+}
+
+a {
+  color: var(--accent);
+}
+
+.gatsby-code-button-container {
+  color: red;
+}

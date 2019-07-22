@@ -1,7 +1,7 @@
-import React, { Component } from "react"
-import { Link } from "gatsby"
+import React, { Component } from 'react'
+import { Link } from 'gatsby'
 
-import { rhythm, scale } from "../utils/typography"
+import { rhythm, scale } from '../utils/typography'
 
 class Layout extends Component {
   render() {
@@ -54,18 +54,30 @@ class Layout extends Component {
     return (
       <div
         style={{
+          backgroundColor: '#ffffff',
           marginLeft: `auto`,
           marginRight: `auto`,
-          maxWidth: rhythm(24),
-          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+          maxWidth: rhythm(32),
+          minHeight: `100vh`,
+          padding: `${rhythm(1.5)} ${rhythm(7 / 4)}`,
         }}
       >
         <header>{header}</header>
         <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
+        <footer
+          style={{
+            bottom: 0,
+          }}
+        >
+          Copyright © {new Date().getFullYear()} (
+          <a
+            href={`https://creativecommons.org/licenses/by/4.0/`}
+            target={`_blank`}
+            rel={`noopener noreferrer`}
+          >
+            CC BY 4.0
+          </a>
+          )
         </footer>
       </div>
     )
