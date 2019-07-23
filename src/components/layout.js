@@ -69,7 +69,8 @@ class Layout extends Component {
             bottom: 0,
           }}
         >
-          Copyright © {new Date().getFullYear()} (
+          Site content released under
+          {` `}
           <a
             href={`https://creativecommons.org/licenses/by-sa/4.0/`}
             target={`_blank`}
@@ -77,7 +78,15 @@ class Layout extends Component {
           >
             CC BY-SA 4.0
           </a>
-          )
+          . Powered by{` `}
+          <a
+            href={`https://www.gatsbyjs.org/`}
+            target={`_blank`}
+            rel={`noopener noreferrer`}
+          >
+            Gatsby
+          </a>
+          .
         </footer>
       </div>
     )
