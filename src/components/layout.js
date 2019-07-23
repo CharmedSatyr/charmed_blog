@@ -71,11 +71,11 @@ class Layout extends Component {
         >
           Copyright © {new Date().getFullYear()} (
           <a
-            href={`https://creativecommons.org/licenses/by/4.0/`}
+            href={`https://creativecommons.org/licenses/by-sa/4.0/`}
             target={`_blank`}
             rel={`noopener noreferrer`}
           >
-            CC BY 4.0
+            CC BY-SA 4.0
           </a>
           )
         </footer>
