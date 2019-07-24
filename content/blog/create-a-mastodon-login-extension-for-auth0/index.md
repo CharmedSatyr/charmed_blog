@@ -9,7 +9,7 @@ That post assumes you are starting from scratch and want to manage user data you
 
 This tutorial will walk through creating an extension for Auth0 to allow social sign-on with Mastodon. If you don't have an Auth0 account, you can set one up and try out their service for free.
 
-#### Before you begin
+#### <div id='caveats'>Before you begin</div>
 
 I'd like to emphasize the [caveats](../how-to-add-login-with-mastodon-using-nodejs#caveats) from the last post. Mastodon utilizes the OAuth 2.0 protocol for authorization, but it does not currently have a robust authentication layer like [OpenID Connect](https://openid.net/connect/) that would make it straightforward to use the same user profile across platforms. Auth0, as an identity as a service provider, cannot really shine in this integration without more help from the Mastodon side.
 
@@ -181,6 +181,6 @@ You can now toggle this connection to enable it in your projects for this tenant
 
 If you haven't already, back in the **Applications** section of your Auth0 tenant page, follow the instructions to create and set up the app on your stack that will use the new login connection.
 
-Once that's complete, when you log in with Auth0, your new Mastodon social connection should be in place along with any other login methods you enable.
+Once that's complete, when you log in with Auth0, the new Mastodon social connection should be in place along with any other login methods you enable ([caveats](#caveats) above), and Auth0 will route Mastodon profile information to your project.
 
 ![Auth0 login page](./assets/auth0-login-page.png)
