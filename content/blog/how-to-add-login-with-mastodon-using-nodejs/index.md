@@ -16,7 +16,7 @@ Mastodon supports the industry-standard [OAuth 2.0](https://oauth.net/2/) protoc
 
 This tutorial builds on the [official documentation](https://docs.joinmastodon.org/api/authentication/) to walk through implemementing social login with Mastodon on a Node.js stack using a generated Express server and a Pug view engine.
 
-#### Before you dive in...
+#### <div id="caveats">Before you dive in...</div>
 
 Unlike Facebook, Twitter, or other centralized social networking services, Mastodon is a large network of independently-operated servers. The OAuth protocol requires a peering agreement between each third-party application (your app) and authorizing server (a Mastodon instance) in the form of application-specific keys. There is no way to automate setting up peering agreements with every Mastodon instance.
 
@@ -48,7 +48,7 @@ I wrote this tutorial using the following software versions:
 
 Version information for packages saved to the project with npm can be found [here](https://github.com/CharmedSatyr/mastodon-oauth-demo/blob/master/package.json). You might be able to get away with using a different setup; give it a shot!
 
-## <div id='create-mastodon-app'>Create the Mastodon Application</div>
+## <div id="create-mastodon-app">Create the Mastodon Application</div>
 
 Let's get started. Your first step will be to sign in to the Mastodon instance that should authorize your users. If you don't have a Mastodon account, you can find an instance that's right for you at [instances.social](https://instances.social). This tutorial will use the instance I run, [charmed.social](https://charmed.social), for the demo.
 
