@@ -181,6 +181,6 @@ You can now toggle this connection to enable it in your projects for this tenant
 
 If you haven't already, back in the **Applications** section of your Auth0 tenant page, follow the instructions to create and set up the app on your stack that will use the new login connection.
 
-Once that's complete, when you log in with Auth0, the new Mastodon social connection should be in place along with any other login methods you enable ([caveats](#caveats) above), and Auth0 will route Mastodon profile information to your project.
+Once that's complete, when you log in with Auth0, the new Mastodon social connection should be in place along with any other login methods you enable ([caveats](#caveats) above), and Auth0 will route normalized profile information to your project.
 
 ![Auth0 login page](./assets/auth0-login-page.png)
