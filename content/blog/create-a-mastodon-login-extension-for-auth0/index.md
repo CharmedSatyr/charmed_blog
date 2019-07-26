@@ -3,7 +3,7 @@ title: Create a Mastodon Login Extension for Auth0
 date: '2019-07-24T21:54:17.461Z'
 ---
 
-I describe in my [previous post](../how-to-add-login-with-mastodon-using-nodejs/) how to create an Node.js Express application that allows users to log in with a Mastodon instance.
+I describe in my [previous post](../how-to-add-login-with-mastodon-using-nodejs/) how to create a Node.js Express application that allows users to log in with a Mastodon instance.
 
 That post assumes you are starting from scratch and want to manage user data yourself. For production applications, however, I like to delegate the heavy lifting on the auth side to [Auth0](https://auth0.com).
 
@@ -11,17 +11,17 @@ This tutorial will walk through creating an extension for Auth0 to allow social 
 
 #### <div id='caveats'>Before you begin</div>
 
-I'd like to emphasize the [caveats](../how-to-add-login-with-mastodon-using-nodejs#caveats) from the last post. Mastodon utilizes the OAuth 2.0 protocol for authorization, but it does not currently have a robust authentication layer like [OpenID Connect](https://openid.net/connect/) that would make it straightforward to use the same user profile across platforms. Auth0, as an identity as a service provider, cannot really shine in this integration without more help from the Mastodon side.
+I'd like to reiterate the [caveats](../how-to-add-login-with-mastodon-using-nodejs#caveats) from the last post. Mastodon utilizes the OAuth 2.0 protocol for authorization, but it does not currently have a robust authentication layer like [OpenID Connect](https://openid.net/connect/) that would make it straightforward to use the same user profile across platforms. Auth0, as an identity as a service provider, cannot really shine in this integration without more help from the Mastodon side.
 
 Let me give you an example. Normally, if I used an email address and password to log in to an application that uses Auth0, and then I logged in to the same app with a GitHub social connection, my login experience would be seamless because Auth0 would have matched my email address to my GitHub profile's email address to identify me as a single user with two login methods.
 
-However, the user-accessible Mastodon [accounts](https://docs.joinmastodon.org/api/entities/#account) API does not include cross-platform identifiers like email. This is not a bad thing for privacy, but it does make the discussion that follows fairly academic.
+However, the user-accessible Mastodon [accounts](https://docs.joinmastodon.org/api/entities/#account) API does not include cross-platform identifiers like email. This is not a bad thing for privacy, but it does make the discussion that follows tougher in practice.
 
-I don't suggest you implement the following unless you accept these limitations. Hopefully, Mastodon developers will be able to integrate a more robust authentication layer in the future. Maybe they could even create an Auth0-specific API; they created an API for [Keybase integration](https://keybase.io/blog/keybase-proofs-for-mastodon-and-everyone)!
+I don't suggest you implement the following unless you only care that your users can log in with Mastodon or are able to compensate for Mastodon' technical limitations in your app. Hopefully, Mastodon developers will be able to integrate a more robust authentication layer in the future. Maybe they could even create an Auth0-specific API; they created an API for [Keybase integration](https://keybase.io/blog/keybase-proofs-for-mastodon-and-everyone)!
 
 ## Create an Auth0 Tenant
 
-Create an account or log in to your Auth0 dashboard. I recommend you use a different [tenant](https://auth0.com/docs/getting-started/create-tenant) for each of your projects. You can make a tenant by clicking on the dropdown at the top right of the page, where your user icon is.
+Let's dive in! First, create an account or log in to your Auth0 dashboard. I recommend you use a different [tenant](https://auth0.com/docs/getting-started/create-tenant) for each of your projects. You can make one by clicking on your user icon at the top right of the page and electing **Create tenant** in the dropdown.
 
 ![Create tenant](./assets/create-tenant.png)
 
