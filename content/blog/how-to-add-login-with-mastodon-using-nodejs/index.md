@@ -46,7 +46,7 @@ I wrote this tutorial using the following software versions:
 - Yeoman: 3.1.0
 - Generator Express ES6: 0.6.1
 
-Version information for packages saved to the project with npm can be found [here](https://github.com/CharmedSatyr/mastodon-oauth-demo/blob/master/package.json). You might be able to get away with using a different setup; give it a shot!
+Version information for packages saved to the project with **npm** can be found [here](https://github.com/CharmedSatyr/mastodon-oauth-demo/blob/master/package.json). You'll likely be able to get away with using a different but similar setup; give it a shot!
 
 ## <div id="create-mastodon-app">Create the Mastodon Application</div>
 
